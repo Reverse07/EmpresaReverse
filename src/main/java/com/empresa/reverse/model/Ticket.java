@@ -13,8 +13,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tickets")
 public class Ticket {
 
@@ -60,105 +66,11 @@ public class Ticket {
     @Column(columnDefinition = "TEXT")
     private String respuesta;
 
-    // Constructores
-    public Ticket() {}
-
-    public Ticket(Usuario usuario, Pedido pedido, String titulo, String descripcion, PrioridadTicket prioridad) {
-        this.usuario = usuario;
-        this.pedido = pedido;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.prioridad = prioridad;
-        this.estado = EstadoTicket.ABIERTO;
-        this.fechaCreacion = LocalDateTime.now();
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public PrioridadTicket getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(PrioridadTicket prioridad) {
-        this.prioridad = prioridad;
-    }
-
-    public EstadoTicket getEstado() {
-        return estado;
-    }
-
     public void setEstado(EstadoTicket estado) {
         this.estado = estado;
         if (estado == EstadoTicket.RESUELTO && fechaResolucion == null) {
             this.fechaResolucion = LocalDateTime.now();
         }
-    }
-
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public LocalDateTime getFechaResolucion() {
-        return fechaResolucion;
-    }
-
-    public void setFechaResolucion(LocalDateTime fechaResolucion) {
-        this.fechaResolucion = fechaResolucion;
-    }
-
-    public Usuario getAsesorAsignado() {
-        return asesorAsignado;
-    }
-
-    public void setAsesorAsignado(Usuario asesorAsignado) {
-        this.asesorAsignado = asesorAsignado;
-    }
-
-    public String getRespuesta() {
-        return respuesta;
-    }
-
-    public void setRespuesta(String respuesta) {
-        this.respuesta = respuesta;
     }
 
     // Métodos de utilidad
@@ -169,14 +81,4 @@ public class Ticket {
     public boolean isResuelto() {
         return estado == EstadoTicket.RESUELTO;
     }
-}
-
-// Enum para prioridad
-enum PrioridadTicket {
-    BAJA, MEDIA, ALTA
-}
-
-// Enum para estado
-enum EstadoTicket {
-    ABIERTO, RESUELTO, CERRADO
 }

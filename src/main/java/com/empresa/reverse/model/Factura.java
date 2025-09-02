@@ -1,6 +1,7 @@
 package com.empresa.reverse.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -50,12 +51,12 @@ public class Factura {
     @Column(name = "metodo_pago", length = 50)
     private String metodoPago;
 
-    // Constructores
-    public Factura() {}
+    public Factura() {
+    }
 
     public Factura(Pedido pedido, String numeroFactura, LocalDateTime fechaEmision,
-                   BigDecimal subtotal, BigDecimal igv, BigDecimal total,
-                   boolean pagada, LocalDateTime fechaPago, String metodoPago) {
+            BigDecimal subtotal, BigDecimal igv, BigDecimal total,
+            boolean pagada, LocalDateTime fechaPago, String metodoPago) {
         this.pedido = pedido;
         this.numeroFactura = numeroFactura;
         this.fechaEmision = fechaEmision;
@@ -152,8 +153,10 @@ public class Factura {
      */
     public void calcularMontos() {
         if (subtotal != null) {
-            this.igv = subtotal.multiply(BigDecimal.valueOf(0.18)).setScale(2, BigDecimal.ROUND_HALF_UP);
-            this.total = subtotal.add(igv).setScale(2, BigDecimal.ROUND_HALF_UP);
+            this.igv = subtotal.multiply(BigDecimal.valueOf(0.18))
+                    .setScale(2, RoundingMode.HALF_UP);
+            this.total = subtotal.add(igv)
+                    .setScale(2, RoundingMode.HALF_UP);
         }
     }
 

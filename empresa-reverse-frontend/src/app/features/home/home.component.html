@@ -1,0 +1,21 @@
+<div class="banner">
+    <h1>REVERSE</h1>
+</div>
+
+<h2>Nuestros Servicios</h2>
+<div class="services-container">
+    <ng-container *ngFor="let s of servicios">
+        <app-service-card [servicio]="s"></app-service-card>
+    </ng-container>
+</div>
+
+<h2>Videos Promocionales</h2>
+<div class="videos-container">
+    <app-video-card title="Video 1"></app-video-card>
+    <app-video-card title="Video 2"></app-video-card>
+    <app-video-card title="Video 3"></app-video-card>
+</div>
+
+<div class="tagline">
+    <h3>Soluciones inteligentes, resultados reales</h3>
+</div>

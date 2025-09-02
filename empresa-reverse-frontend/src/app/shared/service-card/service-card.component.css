@@ -1,0 +1,11 @@
+.card {
+  background:#fff;
+  color:#0b0b0b;
+  border-radius:10px;
+  padding:1rem;
+  width:260px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+.desc { min-height:48px; color:#444; }
+.meta { display:flex; justify-content:space-between; align-items:center; margin-top:.5rem; font-weight:600; }
+.precio { color:#0a7a63; }

@@ -1,0 +1,23 @@
+.banner {
+    background: url('/empresa-reverse-frontend/assets/banner.png') center/cover no-repeat;
+    color: #fff;
+    padding: 5rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.services-container,
+.videos-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+}
+
+.tagline {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: #0b132b;
+}

@@ -115,6 +115,3 @@ En `src/environments/environment.ts` debo verificar que la URL de la API apunte 
 - **Puerto en uso**: cambiar `server.port` para el backend o usar `ng serve --port 4300` para el frontend.
 - **Permisos en Linux/macOS para mvnw**: ejecutar `chmod +x mvnw`.
 - **Angular CLI no instalado**: usar `npx ng serve` o instalarlo globalmente.
-
-
-👨‍💻 Autor: Reverse07

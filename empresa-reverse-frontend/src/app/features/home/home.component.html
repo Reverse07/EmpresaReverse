@@ -1,5 +1,11 @@
 <div class="banner">
+  <video autoplay muted loop playsinline class="banner-video">
+    <source src="/assets/videoplayback.mp4" type="video/mp4" />
+    Tu navegador no soporta video HTML5.
+  </video>
+  <div class="banner-content">
     <h1>REVERSE</h1>
+  </div>
 </div>
 
 <h2>Nuestros Servicios</h2>
@@ -11,9 +17,21 @@
 
 <h2>Videos Promocionales</h2>
 <div class="videos-container">
-    <app-video-card title="Video 1"></app-video-card>
-    <app-video-card title="Video 2"></app-video-card>
-    <app-video-card title="Video 3"></app-video-card>
+  <app-video-card
+    title="Venta de Servidores"
+    [videoUrl]="'https://www.youtube.com/embed/RzkZ_YElryQ'"
+  ></app-video-card>
+
+  <app-video-card
+  title="Automatizacion Industrial"
+  [videoUrl]="'https://www.youtube.com/embed/HMYjw1YeoLk'"
+></app-video-card>
+
+
+  <app-video-card
+  title="Venta de Componentes"
+  [videoUrl]="'https://www.youtube.com/embed/hotJjao3dAg'"
+></app-video-card>
 </div>
 
 <div class="tagline">

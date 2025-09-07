@@ -1,4 +1,12 @@
 <div class="video-card">
-  <div class="thumb"></div>
-  <p class="title">{{ title }}</p>
+  <!-- 🎥 Video embebido con URL segura -->
+  <iframe
+    [src]="safeUrl"
+    frameborder="0"
+    allowfullscreen
+    class="video-frame"
+  ></iframe>
+
+  <!-- 🏷️ Título del video -->
+  <p class="video-title">{{ title }}</p>
 </div>

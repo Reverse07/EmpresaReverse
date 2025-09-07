@@ -16,4 +16,5 @@ public interface FacturaRepository extends JpaRepository<Factura, Long> {
 
     // Buscar facturas pagadas o no
     List<Factura> findByPagada(boolean pagada);
+
 }

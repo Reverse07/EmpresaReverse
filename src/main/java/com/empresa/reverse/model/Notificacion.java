@@ -11,8 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "notificaciones")
 public class Notificacion {
 
@@ -42,9 +48,6 @@ public class Notificacion {
     @Column(name = "tipo", length = 50)
     private String tipo = "INFO";
 
-    // Constructores
-    public Notificacion() {}
-
     public Notificacion(Usuario destinatario, String titulo, String mensaje, String tipo) {
         this.destinatario = destinatario;
         this.titulo = titulo;
@@ -52,70 +55,6 @@ public class Notificacion {
         this.tipo = tipo;
         this.leida = false;
         this.fechaCreacion = LocalDateTime.now();
-    }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public Usuario getDestinatario() {
-        return destinatario;
-    }
-
-    public void setDestinatario(Usuario destinatario) {
-        this.destinatario = destinatario;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public boolean isLeida() {
-        return leida;
-    }
-
-    public void setLeida(boolean leida) {
-        this.leida = leida;
-        if (leida && fechaLectura == null) {
-            this.fechaLectura = LocalDateTime.now();
-        }
-    }
-
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public LocalDateTime getFechaLectura() {
-        return fechaLectura;
-    }
-
-    public void setFechaLectura(LocalDateTime fechaLectura) {
-        this.fechaLectura = fechaLectura;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     // Método de utilidad para marcar como leída

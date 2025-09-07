@@ -8,4 +8,5 @@ export interface Servicio {
     activo: boolean;
     fechaCreacion: string;
     duracionFormateada: string;
+    imagenUrl?:string;
 }

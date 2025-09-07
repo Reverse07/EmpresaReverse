@@ -1,23 +1,125 @@
+/* ====== RESET ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #222;
+  background: #f9f9f9;
+  line-height: 1.6;
+}
+
+/* ====== BANNER ====== */
 .banner {
-    background: url('/empresa-reverse-frontend/assets/banner.png') center/cover no-repeat;
-    color: #fff;
-    padding: 5rem;
-    text-align: center;
-    font-size: 2rem;
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
 }
 
-.services-container,
+.banner-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-content h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  animation: fadeInDown 1.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====== TITULOS ====== */
+h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 3rem 0 1.5rem;
+  color: #222;
+  position: relative;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* ====== SERVICIOS ====== */
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 10%;
+}
+
+/* ====== VIDEOS ====== */
 .videos-container {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 10%;
 }
 
+app-video-card {
+  display: block;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+app-video-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ====== TAGLINE ====== */
 .tagline {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 1.5rem;
-    color: #0b132b;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: #fff;
+  padding: 3rem 1rem;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.tagline h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }

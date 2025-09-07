@@ -1,8 +1,18 @@
 <article class="card">
-  <h3>{{ servicio.nombre }}</h3>
-  <p class="desc">{{ servicio.descripcion }}</p>
-  <div class="meta">
-    <span class="precio">{{ servicio.precio }} PEN</span>
-    <small>{{ servicio.duracionFormateada }}</small>
+<img
+  [src]="servicio.imagenUrl"
+  alt="{{ servicio.nombre }}"
+  class="card-img"
+  (error)="cargarImagenFallback($event)"
+/>
+
+  <div class="card-content">
+    <h3>{{ servicio.nombre }}</h3>
+    <p class="desc">{{ servicio.descripcion }}</p>
+    
+    <div class="meta">
+      <span class="precio">{{ servicio.precio }} PEN</span>
+      <small>{{ servicio.duracionFormateada }}</small>
+    </div>
   </div>
 </article>

@@ -1,7 +1,31 @@
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  margin: 2rem 0 1rem;
+  position: relative;
+}
+
+.page-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 0.5rem auto 0;
+  background: linear-gradient(90deg, #16a34a, #3b82f6);
+  border-radius: 2px;
+}
+
 .services-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 1rem;
+  justify-items: center;
+}
+
+.services-list app-service-card {
+  width: 100%;
+  max-width: 320px;
 }

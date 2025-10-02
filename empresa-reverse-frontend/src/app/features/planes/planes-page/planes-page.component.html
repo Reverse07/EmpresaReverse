@@ -1,0 +1,22 @@
+<h2 class="page-title">Planes y Precios</h2>
+
+<div class="plans-list">
+  <div *ngFor="let plan of planes" class="plan-card">
+    <h3 class="plan-title">{{ plan.nombre }}</h3>
+    <p class="plan-desc">{{ plan.descripcion }}</p>
+
+    <ul class="plan-services">
+      <li *ngFor="let s of plan.serviciosIncluidos">
+        {{ s.nombre }} - {{ s.precio | currency:'USD' }}
+      </li>
+    </ul>
+
+    <div class="plan-pricing">
+      <p class="price-total">Total: {{ plan.precioTotal | currency:'USD' }}</p>
+      <p class="price-discount">Descuento: {{ plan.descuento * 100 }}%</p>
+      <p class="price-final">Precio Final: {{ plan.precioFinal | currency:'USD' }}</p>
+    </div>
+
+    <button class="btn-contratar">Contratar</button>
+  </div>
+</div>

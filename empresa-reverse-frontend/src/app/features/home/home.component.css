@@ -1,125 +1,62 @@
-/* ====== RESET ====== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  color: #222;
-  background: #f9f9f9;
-  line-height: 1.6;
-}
-
-/* ====== BANNER ====== */
-.banner {
-  position: relative;
-  width: 100%;
-  height: 90vh;
-  overflow: hidden;
-}
-
-.banner-video {
-  position: absolute;
+/* 🎥 Banner fijo */
+.banner-fixed {
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.banner-video-fixed {
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  filter: brightness(0.6);
-}
-
-.banner-content {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-content h1 {
-  font-size: 4rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  animation: fadeInDown 1.2s ease-out;
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ====== TITULOS ====== */
-h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin: 3rem 0 1.5rem;
-  color: #222;
-  position: relative;
-}
-
-h2::after {
-  content: "";
   display: block;
-  width: 70px;
-  height: 4px;
-  background: linear-gradient(90deg, #007bff, #00c6ff);
-  margin: 0.5rem auto 0;
-  border-radius: 2px;
 }
 
-/* ====== SERVICIOS ====== */
-.services-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem 10%;
+.banner-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
-/* ====== VIDEOS ====== */
-.videos-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem 10%;
+/* 🟫 Espaciador para empujar el contenido debajo del banner */
+.banner-spacer {
+  height: 100vh;
+  width: 100%;
 }
 
+/* 🏷️ Sección de Servicios */
+section.bg-light {
+  background: #f8f9fa !important;
+}
+
+/* 🎞️ Sección de Videos */
+section.bg-dark {
+  background: linear-gradient(135deg, #1c1c1c, #2a2a2a) !important;
+  padding-bottom: 3rem;
+}
+
+section.bg-dark h2 {
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* ✨ Tarjetas personalizadas */
+app-service-card, 
 app-video-card {
   display: block;
-  background: #fff;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  height: 100%;
 }
 
-app-video-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* ====== TAGLINE ====== */
+/* 🟨 Tagline final */
 .tagline {
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  color: #fff;
-  padding: 3rem 1rem;
-  text-align: center;
-  margin-top: 4rem;
-}
-
-.tagline h3 {
-  font-size: 1.8rem;
-  font-weight: 600;
+  background: #0d6efd;
+  color: white;
+  font-weight: bold;
   letter-spacing: 1px;
 }

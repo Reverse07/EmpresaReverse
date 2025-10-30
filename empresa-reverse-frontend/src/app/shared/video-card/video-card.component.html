@@ -1,12 +1,16 @@
-<div class="video-card">
+<div class="card video-card shadow-lg border-0">
   <!-- 🎥 Video embebido con URL segura -->
-  <iframe
-    [src]="safeUrl"
-    frameborder="0"
-    allowfullscreen
-    class="video-frame"
-  ></iframe>
+  <div class="ratio ratio-16x9">
+    <iframe
+      [src]="safeUrl"
+      frameborder="0"
+      allowfullscreen
+      class="rounded-3"
+    ></iframe>
+  </div>
 
   <!-- 🏷️ Título del video -->
-  <p class="video-title">{{ title }}</p>
+  <div class="card-body text-center">
+    <h5 class="card-title text-white fw-bold">{{ title }}</h5>
+  </div>
 </div>

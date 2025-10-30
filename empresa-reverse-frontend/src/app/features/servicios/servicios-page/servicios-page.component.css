@@ -1,31 +1,53 @@
+/* 🟦 Título principal */
 .page-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #111827;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 2.3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   text-align: center;
-  margin: 2rem 0 1rem;
   position: relative;
 }
 
 .page-title::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 80px;
   height: 4px;
-  margin: 0.5rem auto 0;
+  margin: 0.75rem auto 0;
   background: linear-gradient(90deg, #16a34a, #3b82f6);
   border-radius: 2px;
 }
 
-.services-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem 1rem;
-  justify-items: center;
+/* 🟩 Degradado en texto */
+.text-gradient {
+  background: linear-gradient(90deg, #16a34a, #3b82f6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.services-list app-service-card {
+/* 🟥 Tarjetas de servicio */
+app-service-card {
+  display: block;
   width: 100%;
   max-width: 320px;
+  margin: 0 auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+app-service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* 🧱 Espaciado general */
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.row {
+  margin-bottom: 2rem;
 }

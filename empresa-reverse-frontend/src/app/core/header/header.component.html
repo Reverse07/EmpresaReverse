@@ -1,11 +1,42 @@
-<header class="navbar">
-    <div class="logo">REVERSE</div>
-    <nav>
-        <a routerLink="/">Inicio</a>
-        <a routerLink="/servicios">Servicios</a>
-        <a routerLink="/planes">Planes y Precios</a>
-        <a routerLink="/nosotros">Nosotros</a>
-        <a routerLink="/mision-vision">Misión y visión</a>
-        <a routerLink="/devs">Desarrolladores</a>
-    </nav>
-</header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
+  <div class="container-fluid">
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold fs-3 text-uppercase" routerLink="/">REVERSE</a>
+
+    <!-- Botón colapsable para móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-3">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/servicios">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/planes">Planes y Precios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/nosotros">Nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/mision-vision">Misión y Visión</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/devs">Desarrolladores</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-info px-3" href="#">Registrarse</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-info text-white px-3 ms-2" href="#">Iniciar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

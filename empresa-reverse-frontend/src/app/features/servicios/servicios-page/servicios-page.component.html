@@ -1,4 +1,11 @@
-<h2 class="page-title">Listado de Servicios</h2>
-<div class="services-list">
-  <app-service-card *ngFor="let s of servicios" [servicio]="s"></app-service-card>
+<h2 class="page-title display-4 fw-semibold text-center text-gradient mb-4">
+  Listado de Servicios
+</h2>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let s of servicios">
+      <app-service-card [servicio]="s"></app-service-card>
+    </div>
+  </div>
 </div>

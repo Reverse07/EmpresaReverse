@@ -6,7 +6,7 @@
   padding: 1rem 3rem;
   background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
   color: #fff;
-  position: sticky;
+  
   top: 0;
   z-index: 1000;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);

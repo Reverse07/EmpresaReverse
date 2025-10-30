@@ -1,0 +1,48 @@
+# ========================================
+# 🅰️ FRONTEND (Angular)
+# ========================================
+/empresa-reverse-frontend/dist
+/empresa-reverse-frontend/tmp
+/empresa-reverse-frontend/out-tsc
+/empresa-reverse-frontend/bazel-out
+/empresa-reverse-frontend/node_modules
+/empresa-reverse-frontend/.angular/cache
+/empresa-reverse-frontend/sass-cache/
+/empresa-reverse-frontend/connect.lock
+/empresa-reverse-frontend/coverage
+/empresa-reverse-frontend/testem.log
+/empresa-reverse-frontend/libpeerconnection.log
+/empresa-reverse-frontend/typings
+
+# ========================================
+# ☕ BACKEND (Spring Boot / Maven)
+# ========================================
+/empresa-reverse-backend/target/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# Maven specific
+.mvn/timing.properties
+mvnw
+mvnw.cmd
+
+# ========================================
+# 💻 IDEs and Editors
+# ========================================
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# ========================================
+# ⚙️ System files
+# ========================================
+.DS_Store
+Thumbs.db

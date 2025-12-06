@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +33,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Table(name = "servicios")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Servicio {
 
     @Id
@@ -62,18 +66,19 @@ public class Servicio {
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
 
-    // Relación con pedidos
+    // Evitar recursión infinita: Servicio -> Pedido -> Servicio
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Pedido> pedidos = new ArrayList<>();
 
-    // Constructor completo de Servicio
+    // Constructor personalizado
     public Servicio(String nombre, String descripcion, TipoServicio tipo, BigDecimal precio, Integer duracionEstimada) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.precio = precio;
         this.duracionEstimada = duracionEstimada;
-        this.activo = true; // por defecto activo
+        this.activo = true;
     }
 
     // Métodos de utilidad
@@ -95,11 +100,11 @@ public class Servicio {
 
     public boolean esDesarrollo() {
         return tipo == TipoServicio.DESARROLLO_WEB ||
-                tipo == TipoServicio.DESARROLLO_DESKTOP;
+               tipo == TipoServicio.DESARROLLO_DESKTOP;
     }
 
     public boolean esVenta() {
         return tipo == TipoServicio.VENTA_HARDWARE ||
-                tipo == TipoServicio.VENTA_SOFTWARE;
+               tipo == TipoServicio.VENTA_SOFTWARE;
     }
 }

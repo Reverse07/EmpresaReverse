@@ -1,0 +1,156 @@
+<div class="login-wrapper">
+  <!-- Panel izquierdo - Branding -->
+  <div class="branding-panel">
+    <div class="branding-content">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <i class="bi bi-shield-check"></i>
+        </div>
+        <h1 class="brand-name">REVERSE</h1>
+      </div>
+      <h2 class="brand-tagline">Bienvenido de vuelta</h2>
+      <p class="brand-description">
+        Ingresa a tu cuenta para acceder a todas las herramientas de gestión 
+        empresarial que necesitas para hacer crecer tu negocio.
+      </p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Empresas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Satisfacción</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Soporte</div>
+        </div>
+      </div>
+    </div>
+    <div class="decorative-elements">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+      <div class="circle circle-3"></div>
+    </div>
+  </div>
+
+  <!-- Panel derecho - Formulario -->
+  <div class="form-panel">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 class="form-title">Iniciar sesión</h2>
+        <p class="form-subtitle">Ingresa tus credenciales para continuar</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        
+        <!-- Alerta de error -->
+        <div *ngIf="errorMessage" class="alert alert-error" role="alert">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-field">
+          <label for="email" class="field-label">Correo electrónico</label>
+          <div class="input-wrapper">
+            <i class="bi bi-envelope input-icon"></i>
+            <input 
+              type="email" 
+              id="email"
+              formControlName="email"
+              class="field-input"
+              [class.error]="isFieldInvalid('email')"
+              [class.success]="isFieldValid('email')"
+              placeholder="ejemplo@empresa.com"
+              autocomplete="email">
+          </div>
+          <span class="field-error" *ngIf="isFieldInvalid('email')">
+            {{ getErrorMessage('email') }}
+          </span>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="form-field">
+          <label for="password" class="field-label">Contraseña</label>
+          <div class="input-wrapper">
+            <i class="bi bi-lock input-icon"></i>
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              id="password"
+              formControlName="password"
+              class="field-input"
+              [class.error]="isFieldInvalid('password')"
+              [class.success]="isFieldValid('password')"
+              placeholder="Ingresa tu contraseña"
+              autocomplete="current-password">
+            <button 
+              type="button" 
+              class="toggle-password"
+              (click)="togglePasswordVisibility()"
+              tabindex="-1">
+              <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          <span class="field-error" *ngIf="isFieldInvalid('password')">
+            {{ getErrorMessage('password') }}
+          </span>
+        </div>
+
+        <!-- Recordarme y Olvidé contraseña -->
+        <div class="form-options">
+          <label class="checkbox-container">
+            <input 
+              type="checkbox" 
+              id="recordarme"
+              formControlName="recordarme">
+            <span class="checkmark"></span>
+            <span class="checkbox-label">Recordarme</span>
+          </label>
+          <a href="#" class="link">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <!-- Botón de login -->
+        <button 
+          type="submit" 
+          class="btn-submit"
+          [disabled]="loading">
+          <span *ngIf="!loading">
+            <i class="bi bi-box-arrow-in-right me-2"></i>
+            Iniciar sesión
+          </span>
+          <span *ngIf="loading" class="loading-state">
+            <span class="spinner"></span>
+            Iniciando sesión...
+          </span>
+        </button>
+
+        <!-- Divider -->
+        <div class="divider">
+          <span>o continúa con</span>
+        </div>
+
+        <!-- Botones sociales -->
+        <div class="social-buttons">
+          <button type="button" class="btn-social">
+            <i class="bi bi-google"></i>
+            Google
+          </button>
+          <button type="button" class="btn-social">
+            <i class="bi bi-microsoft"></i>
+            Microsoft
+          </button>
+        </div>
+
+        <!-- Link a registro -->
+        <div class="form-footer">
+          <p>
+            ¿No tienes una cuenta? 
+            <a routerLink="/registro" class="link-primary">Regístrate gratis</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

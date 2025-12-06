@@ -1,53 +1,235 @@
-/* 🟦 Título principal */
-.page-title {
-  margin-top: 60px;
-  margin-bottom: 60px;
-  font-family: 'Segoe UI', 'Roboto', sans-serif;
-  font-size: 2.3rem;
+/* 🎨 Sección principal */
+.servicios-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f1f5f9 100%);
+  min-height: 100vh;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* 🏷️ Badge personalizado */
+.badge {
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ✨ Título principal con gradiente */
+.page-title {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
   position: relative;
+  margin-bottom: 1rem;
 }
 
-.page-title::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 4px;
-  margin: 0.75rem auto 0;
-  background: linear-gradient(90deg, #16a34a, #3b82f6);
-  border-radius: 2px;
-}
-
-/* 🟩 Degradado en texto */
 .text-gradient {
-  background: linear-gradient(90deg, #16a34a, #3b82f6);
+  background: linear-gradient(135deg, #16a34a 0%, #059669 50%, #3b82f6 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
 }
 
-/* 🟥 Tarjetas de servicio */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 📝 Lead text */
+.lead {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* 🎴 Wrapper de servicios con animación */
+.service-wrapper {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🎯 Animación del header */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🃏 Estilos para las tarjetas de servicio */
 app-service-card {
   display: block;
-  width: 100%;
-  max-width: 320px;
-  margin: 0 auto;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 app-service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px) scale(1.02);
 }
 
-/* 🧱 Espaciado general */
-.container {
-  padding-left: 1rem;
-  padding-right: 1rem;
+/* 📢 Call to Action Box */
+.cta-box {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #e5e7eb;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
 
-.row {
-  margin-bottom: 2rem;
+.cta-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+.cta-box h3 {
+  color: #111827;
+}
+
+/* 🔘 Botón con gradiente */
+.btn-gradient {
+  background: linear-gradient(135deg, #16a34a 0%, #3b82f6 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.55) 0%, rgba(37, 99, 235, 0.55) 100%);
+  transition: left 0.3s ease;
+  z-index: 0;
+}
+
+.btn-gradient:hover::before {
+  left: 0;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  color: white;
+}
+
+.btn-gradient i,
+.btn-gradient span {
+  position: relative;
+  z-index: 1;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .servicios-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .btn-gradient {
+    font-size: 0.95rem;
+    padding: 0.75rem 2rem !important;
+  }
+
+  .cta-box {
+    padding: 2rem 1.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+  }
+}
+
+/* 🎨 Mejora visual del grid */
+.row.g-4 {
+  row-gap: 2rem;
+}
+
+/* 🌟 Efecto hover en la sección */
+.service-wrapper:hover {
+  z-index: 10;
+}
+
+/* 📐 Container responsivo */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* 🎭 Animación suave para el scroll */
+.servicios-section {
+  scroll-behavior: smooth;
+}
+
+/* ⚡ Performance optimizations */
+app-service-card,
+.service-wrapper {
+  will-change: transform;
+}
+
+.btn-gradient {
+  will-change: transform, box-shadow;
 }

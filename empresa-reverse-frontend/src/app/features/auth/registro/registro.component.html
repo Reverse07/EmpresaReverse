@@ -1,0 +1,229 @@
+<div class="registro-wrapper">
+  <!-- Panel izquierdo - Branding -->
+  <div class="branding-panel">
+    <div class="branding-content">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <i class="bi bi-shield-check"></i>
+        </div>
+        <h1 class="brand-name">REVERSE</h1>
+      </div>
+      <h2 class="brand-tagline">Gestión Empresarial Inteligente</h2>
+      <p class="brand-description">
+        Únete a más de 500+ empresas que confían en nuestra plataforma para 
+        optimizar sus operaciones y alcanzar el éxito.
+      </p>
+      <div class="features-list">
+        <div class="feature-item">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>Sistema integral de gestión</span>
+        </div>
+        <div class="feature-item">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>Reportes en tiempo real</span>
+        </div>
+        <div class="feature-item">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>Soporte 24/7</span>
+        </div>
+      </div>
+    </div>
+    <div class="decorative-elements">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+      <div class="circle circle-3"></div>
+    </div>
+  </div>
+
+  <!-- Panel derecho - Formulario -->
+  <div class="form-panel">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 class="form-title">Crear cuenta</h2>
+        <p class="form-subtitle">Complete el formulario para comenzar</p>
+      </div>
+
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="registro-form">
+        
+        <!-- Alerta de error -->
+        <div *ngIf="errorMessage" class="alert alert-error" role="alert">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <!-- Nombre y Apellido -->
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nombre" class="field-label">Nombre</label>
+            <div class="input-wrapper">
+              <i class="bi bi-person input-icon"></i>
+              <input 
+                type="text" 
+                id="nombre"
+                formControlName="nombre"
+                class="field-input"
+                [class.error]="isFieldInvalid('nombre')"
+                [class.success]="isFieldValid('nombre')"
+                placeholder="Juan">
+            </div>
+            <span class="field-error" *ngIf="isFieldInvalid('nombre')">
+              {{ getErrorMessage('nombre') }}
+            </span>
+          </div>
+
+          <div class="form-field">
+            <label for="apellido" class="field-label">Apellido</label>
+            <div class="input-wrapper">
+              <i class="bi bi-person input-icon"></i>
+              <input 
+                type="text" 
+                id="apellido"
+                formControlName="apellido"
+                class="field-input"
+                [class.error]="isFieldInvalid('apellido')"
+                [class.success]="isFieldValid('apellido')"
+                placeholder="Pérez">
+            </div>
+            <span class="field-error" *ngIf="isFieldInvalid('apellido')">
+              {{ getErrorMessage('apellido') }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-field">
+          <label for="email" class="field-label">Correo electrónico</label>
+          <div class="input-wrapper">
+            <i class="bi bi-envelope input-icon"></i>
+            <input 
+              type="email" 
+              id="email"
+              formControlName="email"
+              class="field-input"
+              [class.error]="isFieldInvalid('email')"
+              [class.success]="isFieldValid('email')"
+              placeholder="ejemplo@empresa.com">
+          </div>
+          <span class="field-error" *ngIf="isFieldInvalid('email')">
+            {{ getErrorMessage('email') }}
+          </span>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-field">
+          <label for="telefono" class="field-label">
+            Teléfono <span class="optional">(opcional)</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="bi bi-telephone input-icon"></i>
+            <input 
+              type="tel" 
+              id="telefono"
+              formControlName="telefono"
+              class="field-input"
+              [class.error]="isFieldInvalid('telefono')"
+              [class.success]="isFieldValid('telefono')"
+              placeholder="+51 987 654 321">
+          </div>
+          <span class="field-error" *ngIf="isFieldInvalid('telefono')">
+            {{ getErrorMessage('telefono') }}
+          </span>
+        </div>
+
+        <!-- Contraseña y Confirmar -->
+        <div class="form-row">
+          <div class="form-field">
+            <label for="password" class="field-label">Contraseña</label>
+            <div class="input-wrapper">
+              <i class="bi bi-lock input-icon"></i>
+              <input 
+                [type]="showPassword ? 'text' : 'password'" 
+                id="password"
+                formControlName="password"
+                class="field-input"
+                [class.error]="isFieldInvalid('password')"
+                [class.success]="isFieldValid('password')"
+                placeholder="Mínimo 6 caracteres">
+              <button 
+                type="button" 
+                class="toggle-password"
+                (click)="togglePasswordVisibility()"
+                tabindex="-1">
+                <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+              </button>
+            </div>
+            <span class="field-error" *ngIf="isFieldInvalid('password')">
+              {{ getErrorMessage('password') }}
+            </span>
+          </div>
+
+          <div class="form-field">
+            <label for="confirmPassword" class="field-label">Confirmar</label>
+            <div class="input-wrapper">
+              <i class="bi bi-lock input-icon"></i>
+              <input 
+                [type]="showConfirmPassword ? 'text' : 'password'" 
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                class="field-input"
+                [class.error]="isFieldInvalid('confirmPassword')"
+                [class.success]="isFieldValid('confirmPassword')"
+                placeholder="Repite la contraseña">
+              <button 
+                type="button" 
+                class="toggle-password"
+                (click)="toggleConfirmPasswordVisibility()"
+                tabindex="-1">
+                <i [class]="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+              </button>
+            </div>
+            <span class="field-error" *ngIf="isFieldInvalid('confirmPassword')">
+              {{ getErrorMessage('confirmPassword') }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Términos y Condiciones -->
+        <div class="checkbox-field">
+          <label class="checkbox-container">
+            <input 
+              type="checkbox" 
+              id="aceptaTerminos"
+              formControlName="aceptaTerminos">
+            <span class="checkmark"></span>
+            <span class="checkbox-label">
+              Acepto los <a href="#" class="link">términos y condiciones</a> 
+              y la <a href="#" class="link">política de privacidad</a>
+            </span>
+          </label>
+          <span class="field-error" *ngIf="isFieldInvalid('aceptaTerminos')">
+            Debes aceptar los términos y condiciones
+          </span>
+        </div>
+
+        <!-- Botón de registro -->
+        <button 
+          type="submit" 
+          class="btn-submit"
+          [disabled]="loading">
+          <span *ngIf="!loading">
+            <i class="bi bi-check-circle me-2"></i>
+            Crear cuenta
+          </span>
+          <span *ngIf="loading" class="loading-state">
+            <span class="spinner"></span>
+            Creando cuenta...
+          </span>
+        </button>
+
+        <!-- Link a login -->
+        <div class="form-footer">
+          <p>
+            ¿Ya tienes una cuenta? 
+            <a routerLink="/login" class="link-primary">Inicia sesión</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

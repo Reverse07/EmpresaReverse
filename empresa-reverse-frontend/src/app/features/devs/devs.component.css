@@ -1,161 +1,547 @@
-.devs-banner {
-    position: relative;
-    width: 100%;
-    height: 70vh;
-    overflow: hidden;
+/* ⚡ FORZAR ANCHO COMPLETO */
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-.devs-banner-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.6);
+/* 🎯 Hero Section - Full Width */
+.devs-hero {
+  position: relative;
+  width: 100vw;
+  min-height: 90vh;
+  margin-left: calc(-50vw + 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.devs-banner-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    text-align: center;
+.devs-hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: slowZoom 25s infinite alternate;
 }
 
-.devs-banner-content h1 {
-    font-size: 3.5rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 1rem;
-    animation: fadeInDown 1.2s ease;
+@keyframes slowZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15);
+  }
 }
 
-.devs-banner-content p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    animation: fadeInUp 1.2s ease;
+.devs-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.90) 0%, rgba(59, 130, 246, 0.90) 100%);
+  z-index: 1;
 }
 
+.devs-hero-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  animation: fadeInDown 1s ease;
+}
+
+.devs-hero-content h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  letter-spacing: -1px;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+.devs-hero-content .lead {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  opacity: 0.95;
+  animation: fadeInUp 1s ease 0.4s backwards;
+}
+
+/* 📊 Team Stats */
+.team-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  animation: fadeInUp 1s ease 0.6s backwards;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 0.75rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover .stat-icon {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* 🏷️ Section Badge */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, #16a34a15, #3b82f615);
+  color: #16a34a;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* 📝 Team Intro */
+.team-intro {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* 👥 Dev Cards Section */
 .devs-section {
-    padding: 4rem 10%;
-    background: #fff;
-    text-align: center;
-}
-
-.devs-section h2 {
-    font-size: 2.5rem;
-    color: #222;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-.devs-section h2::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 4px;
-    background: linear-gradient(90deg, #007bff, #00c6ff);
-    margin: 0.5rem auto 0;
-    border-radius: 2px;
-}
-
-.devs-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2.5rem;
+  background: #ffffff;
 }
 
 .dev-card {
-    background: #fff;
-    border-radius: 15px;
-    padding: 2rem;
-    width: 280px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    text-align: center;
+  background: white;
+  border-radius: 20px;
+  padding: 0;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  border: 2px solid transparent;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .dev-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: #16a34a;
 }
 
-.dev-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    border: 4px solid #007bff;
+/* 🖼️ Dev Image Wrapper */
+.dev-image-wrapper {
+  position: relative;
+  padding: 2rem 2rem 1rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e5e7eb 100%);
 }
 
-.dev-card h3 {
-    font-size: 1.3rem;
-    color: #222;
-    margin-bottom: 0.5rem;
+.dev-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto;
+  display: block;
+  border: 5px solid white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
-.dev-card .role {
-    color: #007bff;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
+.dev-card:hover .dev-avatar {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(22, 163, 74, 0.3);
+  border-color: #16a34a;
 }
 
-.dev-card p {
-    font-size: 1rem;
-    color: #555;
-    text-align: justify;
+/* 🔗 Social Icons */
+.dev-social {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
 }
 
-.devs-tagline {
-    background: linear-gradient(135deg, #007bff, #00c6ff);
-    color: #fff;
-    padding: 3rem 1rem;
-    text-align: center;
+.dev-card:hover .dev-social {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.devs-tagline h3 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+.social-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.mapa-organizacional{
-text-align: center;
+.social-icon:hover {
+  background: #16a34a;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
 }
 
-/* 🔹 Animaciones */
+/* 📄 Dev Content */
+.dev-content {
+  padding: 1.5rem 2rem 2rem;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.dev-role {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.dev-description {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+/* 🏷️ Skill Tags */
+.dev-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.skill-tag {
+  padding: 0.35rem 0.85rem;
+  background: linear-gradient(135deg, #16a34a10, #3b82f610);
+  color: #16a34a;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid #16a34a30;
+  transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+  background: linear-gradient(135deg, #16a34a, #3b82f6);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+/* 📊 Org Chart Section */
+.org-chart-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e5e7eb 100%);
+}
+
+.org-chart-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.org-chart-container {
+  position: relative;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.org-chart-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.org-chart-container:hover .org-chart-img {
+  transform: scale(1.02);
+}
+
+/* 💎 Team Values */
+.team-values-section {
+  background: white;
+}
+
+.team-value-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 2.5rem 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #e5e7eb;
+  height: 100%;
+}
+
+.team-value-card:hover {
+  transform: translateY(-10px);
+  border-color: #16a34a;
+  box-shadow: 0 15px 35px rgba(22, 163, 74, 0.15);
+}
+
+.team-value-card .value-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+}
+
+.team-value-card:hover .value-icon {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.team-value-card h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.team-value-card p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* 🎬 CTA Section */
+.devs-cta-section {
+  background: linear-gradient(135deg, #16a34a 0%, #3b82f6 100%);
+  color: white;
+  padding: 6rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.devs-cta-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+  animation: movePattern 30s linear infinite;
+}
+
+@keyframes movePattern {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100px, 100px);
+  }
+}
+
+.devs-cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.quote-icon {
+  font-size: 4rem;
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
+.devs-cta-content h3 {
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.devs-cta-section .btn-light {
+  background: white;
+  color: #16a34a;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.devs-cta-section .btn-light:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: #f8f9fa;
+}
+
+.devs-cta-section .btn-outline-light {
+  border: 2px solid white;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.devs-cta-section .btn-outline-light:hover {
+  background: white;
+  color: #3b82f6;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* 🎭 Animations */
 @keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* 📱 Responsive */
+@media (max-width: 992px) {
+  .team-stats {
+    gap: 2rem;
+  }
+
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .dev-avatar {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 @media (max-width: 768px) {
-    .devs-banner-content h1 {
-        font-size: 2.5rem;
-    }
+  .devs-hero {
+    min-height: 75vh;
+  }
 
-    .dev-card {
-        width: 90%;
-        max-width: 340px;
-    }
+  .team-stats {
+    gap: 1.5rem;
+  }
+
+  .stat-item {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
+
+  .dev-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .org-chart-container {
+    padding: 1rem;
+  }
+
+  .devs-cta-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .quote-icon {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .stat-item {
+    flex: 0 0 100%;
+  }
+
+  .team-value-card {
+    padding: 2rem 1rem;
+  }
+
+  .team-value-card .value-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.75rem;
+  }
 }

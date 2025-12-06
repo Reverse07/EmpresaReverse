@@ -31,6 +31,7 @@
     "Desarrollo Desktop": "desktop-app.jpg",
     "Venta de Hardware": "hardware-upgrade.jpg",
     "Venta de Software": "office365.jpg",
+    "Consultoría DevOps": "devops.jpg",
     "Integración de Sistemas": "erp-crm.png",
     "Consultoría Técnica": "consulting.jpg",
     "Soporte Técnico": "maintenance.jpg",

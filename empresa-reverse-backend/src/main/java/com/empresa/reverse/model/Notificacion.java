@@ -2,6 +2,8 @@ package com.empresa.reverse.model;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,6 +30,7 @@ public class Notificacion {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "destinatario_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Usuario destinatario;
 
     @Column(nullable = false, length = 200)
@@ -39,7 +42,8 @@ public class Notificacion {
     @Column(nullable = false)
     private boolean leida = false;
 
-    @Column(name = "fecha_creacion")
+    @CreationTimestamp
+    @Column(name = "fecha_creacion", updatable = false)
     private LocalDateTime fechaCreacion;
 
     @Column(name = "fecha_lectura")
@@ -53,12 +57,10 @@ public class Notificacion {
         this.titulo = titulo;
         this.mensaje = mensaje;
         this.tipo = tipo;
-        this.leida = false;
-        this.fechaCreacion = LocalDateTime.now();
     }
 
-    // Método de utilidad para marcar como leída
     public void marcarComoLeida() {
-        setLeida(true);
+        this.leida = true;
+        this.fechaLectura = LocalDateTime.now();
     }
 }

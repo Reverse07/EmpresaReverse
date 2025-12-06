@@ -1,61 +1,90 @@
-<!-- 🟦 Banner fijo en pantalla -->
-<div class="banner-fixed text-white">
-  <video autoplay muted loop playsinline class="banner-video-fixed">
+<!-- 🎥 BANNER CON VIDEO DE FONDO Y PARALLAX -->
+<div class="hero-banner">
+  <video #heroVideo autoplay muted loop playsinline class="hero-video">
     <source src="/assets/videoplayback.mp4" type="video/mp4" />
     Tu navegador no soporta video HTML5.
   </video>
-  <div class="banner-overlay">
-    <h1 class="fw-bold display-3 text-center">REVERSE</h1>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title animate-fade-in">REVERSE</h1>
+    <p class="hero-subtitle animate-fade-in-delay">Innovación tecnológica a tu alcance</p>
+    <button class="btn btn-light btn-lg mt-4 px-5 animate-fade-in-delay-2" (click)="scrollToServices()">
+      Descubre más <i class="bi bi-arrow-down ms-2"></i>
+    </button>
   </div>
 </div>
 
-<!-- 🟫 Espaciador para evitar superposición -->
-<div class="banner-spacer"></div>
-
-<!-- 🟩 Sección Servicios -->
-<section class="py-5 bg-light">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-4">Nuestros Servicios</h2>
-    <div class="row g-4 justify-content-center">
-      <ng-container *ngFor="let s of servicios">
+<!-- 🟩 SECCIÓN SERVICIOS CON DISEÑO MODERNO -->
+<section #servicesSection class="services-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="badge bg-primary mb-3 px-4 py-2">LO QUE HACEMOS</span>
+      <h2 class="display-5 fw-bold mb-3">Nuestros Servicios</h2>
+      <p class="text-muted lead">Soluciones tecnológicas personalizadas para tu negocio</p>
+    </div>
+    
+    <div class="row g-4">
+      <ng-container *ngFor="let s of servicios; let i = index; trackBy: trackByServicioId">
         <div class="col-12 col-md-6 col-lg-4">
-          <app-service-card [servicio]="s"></app-service-card>
+          <div class="service-card h-100" [style.animation-delay.ms]="i * 100">
+            <app-service-card [servicio]="s"></app-service-card>
+          </div>
         </div>
       </ng-container>
     </div>
   </div>
 </section>
 
-<!-- 🟥 Sección Videos -->
-<section class="py-5 bg-dark text-white">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-4">Videos Promocionales</h2>
-    <div class="row g-4 justify-content-center">
+<!-- 🎬 SECCIÓN VIDEOS CON EFECTO GLASSMORPHISM -->
+<section class="videos-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="badge bg-light text-dark mb-3 px-4 py-2">CONTENIDO VISUAL</span>
+      <h2 class="display-5 fw-bold text-white mb-3">Videos Promocionales</h2>
+      <p class="text-white-50 lead">Conoce más sobre nuestras soluciones</p>
+    </div>
+    
+    <div class="row g-4">
       <div class="col-12 col-md-6 col-lg-4">
-        <app-video-card
-          title="Venta de Servidores"
-          [videoUrl]="'https://www.youtube.com/embed/RzkZ_YElryQ'">
-        </app-video-card>
+        <div class="video-card-wrapper">
+          <app-video-card
+            title="Venta de Servidores"
+            [videoUrl]="'https://www.youtube-nocookie.com/embed/RzkZ_YElryQ'">
+          </app-video-card>
+        </div>
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <app-video-card
-          title="Automatización Industrial"
-          [videoUrl]="'https://www.youtube.com/embed/HMYjw1YeoLk'">
-        </app-video-card>
+        <div class="video-card-wrapper">
+          <app-video-card
+            title="Automatización Industrial"
+            [videoUrl]="'https://www.youtube-nocookie.com/embed/HMYjw1YeoLk'">
+          </app-video-card>
+        </div>
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <app-video-card
-          title="Venta de Componentes"
-          [videoUrl]="'https://www.youtube.com/embed/hotJjao3dAg'">
-        </app-video-card>
+        <div class="video-card-wrapper">
+          <app-video-card
+            title="Venta de Componentes"
+            [videoUrl]="'https://www.youtube-nocookie.com/embed/hotJjao3dAg'">
+          </app-video-card>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 🟨 Frase final -->
-<div class="tagline py-4 bg-primary text-white text-center">
-  <h3 class="mb-0">Soluciones inteligentes, resultados reales</h3>
-</div>
+<!-- 📊 SECCIÓN ESTADÍSTICAS -->
+<section class="stats-section py-5 bg-light">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div *ngFor="let stat of stats" class="col-6 col-md-3">
+        <div class="stat-item">
+          <h3 class="display-4 fw-bold text-primary mb-2">{{ stat.value }}</h3>
+          <p class="text-muted mb-0">{{ stat.label }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

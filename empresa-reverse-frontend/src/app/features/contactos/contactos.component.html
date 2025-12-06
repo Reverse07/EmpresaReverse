@@ -1,36 +1,297 @@
-<div class="mv-banner">
-    <img src="../../../assets/contactos.jpg"
-        alt="Banner misión y visión" class="mv-banner-img" />
-    <div class="mv-banner-content">
-        <h1>Contactos</h1>
-        <p>Queremos conocer su opinión</p>
-    </div>
-</div>
-  <br>
-<div class="contorno">
-  <div class="form-container">
-    <h2>Registro de Contacto</h2>
-
-    <form #f="ngForm" (ngSubmit)="enviarFormulario()">
-
-      <label>Nombre</label>
-      <input type="text" [(ngModel)]="datos.nombre" name="nombre" required>
-
-      <label>Apellidos</label>
-      <input type="text" [(ngModel)]="datos.apellidos" name="apellidos" required>
-
-      <label>Género</label>
-      <input type="text" [(ngModel)]="datos.genero" name="genero" required>
-
-      <label>Correo</label>
-      <input type="email" [(ngModel)]="datos.correo" name="correo" required>
-
-      <label>Mensaje</label>
-      <textarea [(ngModel)]="datos.comentario" name="comentario" required></textarea>
-
-      <button type="submit">Enviar</button>
-      <button type="button" (click)="borrar()">Limpiar</button>
-
-    </form>
+<!-- Hero Banner Full Width -->
+<div class="contact-hero">
+  <div class="contact-hero-overlay"></div>
+  <img 
+    src="../../../assets/contactos.jpg"
+    alt="Contacta con REVERSE" 
+    class="contact-hero-img" 
+  />
+  <div class="contact-hero-content container">
+    <span class="hero-badge">
+      <i class="bi bi-chat-dots me-2"></i>
+      Contáctanos
+    </span>
+    <h1 class="display-2 fw-bold mb-3">Hablemos de Tu Proyecto</h1>
+    <p class="lead fs-4">Estamos aquí para escucharte y ayudarte a alcanzar tus objetivos</p>
   </div>
 </div>
+
+<!-- Sección de Contacto Principal -->
+<section class="contact-section py-5">
+  <div class="container py-5">
+    <div class="row g-5">
+      
+      <!-- Información de Contacto -->
+      <div class="col-lg-5" data-aos="fade-right">
+        <div class="contact-info-wrapper">
+          <span class="section-badge mb-3">
+            <i class="bi bi-info-circle me-2"></i>
+            Información
+          </span>
+          <h2 class="display-6 fw-bold mb-4">¿Cómo Podemos Ayudarte?</h2>
+          <p class="lead text-muted mb-5">
+            Queremos conocer tu opinión y trabajar juntos en la creación de soluciones 
+            digitales que transformen tu negocio.
+          </p>
+
+          <!-- Cards de Información -->
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="info-icon">
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
+              <div class="info-content">
+                <h5 class="fw-bold mb-1">Ubicación</h5>
+                <p class="text-muted mb-0">San Juan de Miraflores, Lima, Perú</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <i class="bi bi-telephone-fill"></i>
+              </div>
+              <div class="info-content">
+                <h5 class="fw-bold mb-1">Teléfono</h5>
+                <a href="tel:+51915951259" class="contact-link">+51 915 951 259</a>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <i class="bi bi-envelope-fill"></i>
+              </div>
+              <div class="info-content">
+                <h5 class="fw-bold mb-1">Email</h5>
+                <a href="mailto:reverse@gmail.com" class="contact-link">reverse@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <i class="bi bi-clock-fill"></i>
+              </div>
+              <div class="info-content">
+                <h5 class="fw-bold mb-1">Horario</h5>
+                <p class="text-muted mb-0">Lun - Vie: 9:00 AM - 6:00 PM</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Redes Sociales -->
+          <div class="social-links mt-5">
+            <h5 class="fw-bold mb-3">Síguenos</h5>
+            <div class="d-flex gap-3">
+              <a href="#" class="social-btn">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="social-btn">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="#" class="social-btn">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="#" class="social-btn">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="https://wa.me/51915951259" target="_blank" class="social-btn">
+                <i class="bi bi-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario de Contacto -->
+      <div class="col-lg-7" data-aos="fade-left">
+        <div class="form-wrapper">
+          <div class="form-header mb-4">
+            <span class="section-badge mb-3">
+              <i class="bi bi-pencil-square me-2"></i>
+              Envíanos un Mensaje
+            </span>
+            <h2 class="h3 fw-bold mb-2">Registro de Contacto</h2>
+            <p class="text-muted">Completa el formulario y nos pondremos en contacto contigo</p>
+          </div>
+
+          <form #f="ngForm" (ngSubmit)="enviarFormulario()" class="contact-form">
+            <div class="row g-3">
+              <!-- Nombre -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="nombre" class="form-label">
+                    <i class="bi bi-person me-2"></i>Nombre *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="nombre"
+                    class="form-control" 
+                    [(ngModel)]="datos.nombre" 
+                    name="nombre" 
+                    placeholder="Ej: Juan"
+                    required>
+                </div>
+              </div>
+
+              <!-- Apellidos -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="apellidos" class="form-label">
+                    <i class="bi bi-person-badge me-2"></i>Apellidos *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="apellidos"
+                    class="form-control" 
+                    [(ngModel)]="datos.apellidos" 
+                    name="apellidos" 
+                    placeholder="Ej: Pérez García"
+                    required>
+                </div>
+              </div>
+
+              <!-- Género -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="genero" class="form-label">
+                    <i class="bi bi-gender-ambiguous me-2"></i>Género *
+                  </label>
+                  <select 
+                    id="genero"
+                    class="form-control" 
+                    [(ngModel)]="datos.genero" 
+                    name="genero" 
+                    required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Prefiero no especificar</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Correo -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="correo" class="form-label">
+                    <i class="bi bi-envelope me-2"></i>Correo Electrónico *
+                  </label>
+                  <input 
+                    type="email" 
+                    id="correo"
+                    class="form-control" 
+                    [(ngModel)]="datos.correo" 
+                    name="correo" 
+                    placeholder="ejemplo@correo.com"
+                    required>
+                </div>
+              </div>
+
+              <!-- Mensaje -->
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="mensaje" class="form-label">
+                    <i class="bi bi-chat-left-text me-2"></i>Mensaje *
+                  </label>
+                  <textarea 
+                    id="mensaje"
+                    class="form-control" 
+                    [(ngModel)]="datos.comentario" 
+                    name="comentario" 
+                    rows="5"
+                    placeholder="Cuéntanos sobre tu proyecto o consulta..."
+                    required></textarea>
+                </div>
+              </div>
+
+              <!-- Botones -->
+              <div class="col-12">
+                <div class="d-flex gap-3 flex-wrap">
+                  <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                    <i class="bi bi-send me-2"></i>
+                    Enviar Mensaje
+                  </button>
+                  <button type="button" (click)="borrar()" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-clockwise me-2"></i>
+                    Limpiar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección de Razones para Contactarnos -->
+<section class="why-contact-section py-5">
+  <div class="container py-5">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="section-badge mb-3">
+        <i class="bi bi-star me-2"></i>
+        ¿Por Qué Elegirnos?
+      </span>
+      <h2 class="display-5 fw-bold mb-3">Razones Para Trabajar Con Nosotros</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="bi bi-lightning-charge-fill"></i>
+          </div>
+          <h4 class="fw-bold">Respuesta Rápida</h4>
+          <p class="text-muted">Te contactamos en menos de 24 horas</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h4 class="fw-bold">Confidencialidad</h4>
+          <p class="text-muted">Tus datos están 100% protegidos</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="bi bi-chat-quote"></i>
+          </div>
+          <h4 class="fw-bold">Asesoría Gratuita</h4>
+          <p class="text-muted">Primera consulta sin compromiso</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="why-card">
+          <div class="why-icon">
+            <i class="bi bi-award"></i>
+          </div>
+          <h4 class="fw-bold">Calidad Garantizada</h4>
+          <p class="text-muted">Soluciones profesionales y efectivas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mapa (Opcional) -->
+<section class="map-section" data-aos="fade-up">
+  <div class="container">
+    <div class="map-wrapper">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62460.79476345471!2d-77.01427384863281!3d-12.157988399999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b7f5f3e5f5f5%3A0x5f5f5f5f5f5f5f5f!2sSan%20Juan%20de%20Miraflores!5e0!3m2!1ses!2spe!4v1234567890123!5m2!1ses!2spe" 
+        width="100%" 
+        height="450" 
+        style="border:0; border-radius: 16px;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>

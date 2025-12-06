@@ -2,6 +2,9 @@ package com.empresa.reverse.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,6 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tickets")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ticket {
 
     @Id
@@ -31,11 +35,13 @@ public class Ticket {
     // Usuario que creó el ticket
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonIgnore
     private Usuario usuario;
 
     // Pedido relacionado (opcional)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id")
+    @JsonIgnore
     private Pedido pedido;
 
     @Column(nullable = false, length = 200)
@@ -61,6 +67,7 @@ public class Ticket {
     // Asesor asignado (opcional)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "asesor_asignado_id")
+    @JsonIgnore
     private Usuario asesorAsignado;
 
     @Column(columnDefinition = "TEXT")

@@ -2,7 +2,20 @@
   <div class="container">
     <h2 class="page-title display-5 fw-bold text-center mb-5">Planes y Precios</h2>
 
-    <div class="row justify-content-center gy-4">
+    <!-- Mensaje de carga -->
+    <div *ngIf="loading" class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+
+    <!-- Planes -->
+    <div *ngIf="!loading && !error" class="row justify-content-center gy-4">
       <div class="col-12 col-md-6 col-lg-4" *ngFor="let plan of planes">
         <div class="plan-card h-100 d-flex flex-column justify-content-between">
           <div>
@@ -11,21 +24,112 @@
 
             <ul class="plan-services">
               <li *ngFor="let s of plan.serviciosIncluidos">
-                {{ s.nombre }} – {{ s.precio | currency:'USD' }}
+                {{ s.nombre }} – {{ s.precio | currency:'USD':'symbol':'1.2-2' }}
               </li>
             </ul>
 
             <div class="plan-pricing">
-              <p class="price-total">Total: {{ plan.precioTotal | currency:'USD' }}</p>
+              <p class="price-total">Total: {{ plan.precioTotal | currency:'USD':'symbol':'1.2-2' }}</p>
               <p class="price-discount">Descuento: {{ plan.descuento * 100 }}%</p>
-              <p class="price-final">Precio Final: {{ plan.precioFinal | currency:'USD' }}</p>
+              <p class="price-final">Precio Final: {{ plan.precioFinal | currency:'USD':'symbol':'1.2-2' }}</p>
             </div>
           </div>
 
-          <button class="btn btn-contratar mt-auto">Contratar</button>
+          <button class="btn btn-contratar mt-auto" (click)="contratar(plan)">
+            Contratar
+          </button>
         </div>
       </div>
+    </div>
+
+    <!-- Mensaje si no hay planes -->
+    <div *ngIf="!loading && !error && planes.length === 0" class="alert alert-info text-center">
+      No hay planes disponibles en este momento.
     </div>
   </div>
 </section>
 
+<!-- Modal de Contratación -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Contratar {{ selectedPlan?.nombre }}</h3>
+      <button class="btn-close" (click)="closeModal()" type="button">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <p class="text-muted mb-4">
+        Precio: <strong>{{ selectedPlan?.precioFinal | currency:'USD':'symbol':'1.2-2' }}</strong>
+      </p>
+
+      <form (ngSubmit)="submitForm()" #contratacionForm="ngForm">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre completo *</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="nombre" 
+            [(ngModel)]="formData.nombre"
+            name="nombre"
+            placeholder="Ej: Juan Pérez"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email *</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            [(ngModel)]="formData.email"
+            name="email"
+            placeholder="Ej: juan@empresa.com"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono *</label>
+          <input 
+            type="tel" 
+            class="form-control" 
+            id="telefono" 
+            [(ngModel)]="formData.telefono"
+            name="telefono"
+            placeholder="Ej: +51 999 999 999"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label for="empresa" class="form-label">Empresa</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="empresa" 
+            [(ngModel)]="formData.empresa"
+            name="empresa"
+            placeholder="Ej: Mi Empresa SAC">
+        </div>
+
+        <div class="mb-3">
+          <label for="mensaje" class="form-label">Mensaje adicional</label>
+          <textarea 
+            class="form-control" 
+            id="mensaje" 
+            rows="3"
+            [(ngModel)]="formData.mensaje"
+            name="mensaje"
+            placeholder="¿Alguna consulta o requerimiento especial?"></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary flex-grow-1">
+            Enviar Solicitud
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

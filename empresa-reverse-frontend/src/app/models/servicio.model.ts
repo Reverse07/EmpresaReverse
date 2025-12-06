@@ -1,12 +1,10 @@
 export interface Servicio {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    tipo: string;
-    precio: number;
-    duracionEstimada: number;
-    activo: boolean;
-    fechaCreacion: string;
-    duracionFormateada: string;
-    imagenUrl?:string;
+  id?: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  duracion: number;
+  imagenUrl?: string;  // Agregar esta línea
+  duracionFormateada?: string;  // Agregar esta línea
+  // ... otras propiedades que ya tengas
 }

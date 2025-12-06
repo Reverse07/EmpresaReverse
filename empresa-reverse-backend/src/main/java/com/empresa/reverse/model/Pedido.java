@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,20 +35,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "pedidos")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // CLIENTE - evitar recursión Usuario <-> Pedido
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     @NotNull(message = "Cliente es obligatorio")
+    @JsonIgnore
     private Usuario cliente;
 
+    // SERVICIO - evita recursión Servicio <-> Pedido
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "servicio_id", nullable = false)
     @NotNull(message = "Servicio es obligatorio")
+    @JsonIgnore
     private Servicio servicio;
 
     @CreationTimestamp
@@ -75,17 +83,19 @@ public class Pedido {
     @Column(name = "precio_final", precision = 10, scale = 2)
     private BigDecimal precioFinal;
 
-    // Relaciones
+    // FACTURAS - evitar ciclos
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Factura> facturas = new ArrayList<>();
 
+    // TICKETS - evitar ciclos
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Ticket> tickets = new ArrayList<>();
+
 
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
-
-        // Auto-asignar fecha de completado cuando se marca como completado
         if (estado == EstadoPedido.COMPLETADO && fechaCompletada == null) {
             this.fechaCompletada = LocalDateTime.now();
         }
@@ -122,7 +132,7 @@ public class Pedido {
     public String getResumenPedido() {
         return String.format("Pedido #%d - %s - %s",
                 id,
-                servicio.getNombre(),
+                servicio != null ? servicio.getNombre() : "Sin servicio",
                 estado.getDescripcion());
     }
 

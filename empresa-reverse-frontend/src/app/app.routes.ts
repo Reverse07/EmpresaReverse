@@ -6,7 +6,8 @@ import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { MisionVisionComponent } from './features/mision-vision/mision-vision.component';
 import { DevsComponent } from './features/devs/devs.component';
 import { ContactosComponent } from './features/contactos/contactos.component';
-
+import { RegistroComponent } from './features/auth/registro/registro.component';
+import { LoginComponent } from './features/auth/login/login.component';
 
 
 export const routes: Routes = [
@@ -16,5 +17,7 @@ export const routes: Routes = [
   { path: 'nosotros', component: NosotrosComponent },
   { path: 'mision-vision', component: MisionVisionComponent },
   { path: 'devs', component: DevsComponent},
-  { path: 'contactos', component: ContactosComponent }
+  { path: 'contactos', component: ContactosComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'login', component: LoginComponent }
 ];

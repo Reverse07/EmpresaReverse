@@ -1,11 +1,39 @@
-<h2 class="page-title display-4 fw-semibold text-center text-gradient mb-4">
-  Listado de Servicios
-</h2>
+<section class="servicios-section py-5">
+  <div class="container">
+    <!-- Header con animación -->
+    <div class="text-center mb-5 animate-fade-in">
+      <span class="badge bg-primary-subtle text-primary mb-3 px-4 py-2 rounded-pill">
+        Nuestros Servicios
+      </span>
+      <h2 class="page-title display-4 fw-bold text-gradient mb-3">
+        Soluciones Tecnológicas
+      </h2>
+      <p class="lead text-muted mx-auto" style="max-width: 600px;">
+        Transformamos tus ideas en realidad digital con servicios de alta calidad
+      </p>
+    </div>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let s of servicios">
-      <app-service-card [servicio]="s"></app-service-card>
+    <!-- Grid de servicios -->
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-sm-6 col-lg-4" *ngFor="let s of servicios; let i = index">
+        <div class="service-wrapper" [style.animation-delay]="i * 0.1 + 's'">
+          <app-service-card [servicio]="s"></app-service-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5 pt-4">
+      <div class="cta-box p-4 rounded-4 shadow-sm">
+        <h3 class="h4 fw-semibold mb-3">¿No encuentras lo que buscas?</h3>
+        <p class="text-muted mb-4">
+          Contáctanos y crearemos una solución personalizada para tu negocio
+        </p>
+        <a href="/contactos" class="btn btn-lg btn-gradient px-5 py-3">
+          Hablar con un Experto
+          <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+      </div>
     </div>
   </div>
-</div>
+</section>

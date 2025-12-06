@@ -5,6 +5,9 @@ import { PlanesPageComponent } from './features/planes/planes-page/planes-page.c
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { MisionVisionComponent } from './features/mision-vision/mision-vision.component';
 import { DevsComponent } from './features/devs/devs.component';
+import { ContactosComponent } from './features/contactos/contactos.component';
+
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,5 +15,6 @@ export const routes: Routes = [
   { path: 'planes', component: PlanesPageComponent },
   { path: 'nosotros', component: NosotrosComponent },
   { path: 'mision-vision', component: MisionVisionComponent },
-  { path: 'devs', component: DevsComponent}
+  { path: 'devs', component: DevsComponent},
+  { path: 'contactos', component: ContactosComponent }
 ];

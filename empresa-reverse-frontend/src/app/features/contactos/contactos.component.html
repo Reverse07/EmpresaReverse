@@ -1,0 +1,36 @@
+<div class="mv-banner">
+    <img src="../../../assets/contactos.jpg"
+        alt="Banner misión y visión" class="mv-banner-img" />
+    <div class="mv-banner-content">
+        <h1>Contactos</h1>
+        <p>Queremos conocer su opinión</p>
+    </div>
+</div>
+  <br>
+<div class="contorno">
+  <div class="form-container">
+    <h2>Registro de Contacto</h2>
+
+    <form #f="ngForm" (ngSubmit)="enviarFormulario()">
+
+      <label>Nombre</label>
+      <input type="text" [(ngModel)]="datos.nombre" name="nombre" required>
+
+      <label>Apellidos</label>
+      <input type="text" [(ngModel)]="datos.apellidos" name="apellidos" required>
+
+      <label>Género</label>
+      <input type="text" [(ngModel)]="datos.genero" name="genero" required>
+
+      <label>Correo</label>
+      <input type="email" [(ngModel)]="datos.correo" name="correo" required>
+
+      <label>Mensaje</label>
+      <textarea [(ngModel)]="datos.comentario" name="comentario" required></textarea>
+
+      <button type="submit">Enviar</button>
+      <button type="button" (click)="borrar()">Limpiar</button>
+
+    </form>
+  </div>
+</div>

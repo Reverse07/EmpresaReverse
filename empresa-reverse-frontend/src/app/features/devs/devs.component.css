@@ -120,6 +120,10 @@
     letter-spacing: 1px;
 }
 
+.mapa-organizacional{
+text-align: center;
+}
+
 /* 🔹 Animaciones */
 @keyframes fadeInDown {
     from {

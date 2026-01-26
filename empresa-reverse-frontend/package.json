@@ -1,78 +1,14 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "empresa-reverse-frontend": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/empresa-reverse-frontend",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "empresa-reverse-frontend:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "empresa-reverse-frontend:build:production"
-            },
-            "development": {
-              "browserTarget": "empresa-reverse-frontend:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        }
-      }
-    }
-  },
-  "cli": {
-    "analytics": false
+  "name": "empresa-reverse-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:prod": "ng build --configuration production",
+    "test": "ng test",
+    "lint": "ng lint"
   },
   "dependencies": {
     "@angular/animations": "^20.3.3",
@@ -91,6 +27,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.3.4",
-    "@angular/cli": "^20.3.4"
+    "@angular/cli": "^20.3.4",
+    "typescript": "^5.6.3"
   }
 }

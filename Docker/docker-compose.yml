@@ -1,0 +1,178 @@
+version: "3.9"
+
+networks:
+  backend_net:
+    driver: overlay
+    internal: true
+    driver_opts:
+      encrypted: "true"
+  frontend_net:
+    driver: overlay
+
+volumes:
+  db_data:
+    driver: local
+  ssl_certs:
+    driver: local
+  backend_logs:
+    driver: local
+
+secrets:
+  db_user:
+    file: ./secrets/db_user.txt
+  db_password:
+    file: ./secrets/db_password.txt
+  app_config:
+    file: ./secrets/application-prod.yml
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "empresa_db"
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    secrets:
+      - db_password
+      - db_user
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d empresa_db || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "com.empresa.service=database"
+      - "com.empresa.tier=backend"
+      - "com.empresa.description=PostgreSQL 15 database"
+
+  backend:
+    image: empresa-backend:secure
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/empresa_db"
+      SPRING_DATASOURCE_USERNAME_FILE: "/run/secrets/db_user"
+      SPRING_DATASOURCE_PASSWORD_FILE: "/run/secrets/db_password"
+      SPRING_CONFIG_IMPORT: "optional:file:/run/secrets/application-prod.yml"
+      LOG_PATH: "/app/logs"
+      JAVA_TOOL_OPTIONS: "-Djava.io.tmpdir=/tmp -Xmx768m -Xms256m"
+    secrets:
+      - db_user
+      - db_password
+      - app_config
+    depends_on:
+      - db
+    networks:
+      - backend_net
+      - frontend_net
+    volumes:
+      - backend_logs:/app/logs
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/actuator/health | grep -q '\"status\":\"UP\"' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    cap_drop:
+      - ALL
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 180s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "com.empresa.service=application"
+      - "com.empresa.tier=backend"
+      - "com.empresa.description=Spring Boot backend application"
+
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - backend
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - frontend_net
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /var/log/nginx
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETGID
+      - SETUID
+      - NET_BIND_SERVICE
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "com.empresa.service=webserver"
+      - "com.empresa.tier=frontend"
+      - "com.empresa.description=Nginx reverse proxy and static file server"

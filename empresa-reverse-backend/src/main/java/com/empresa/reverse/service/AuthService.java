@@ -78,7 +78,7 @@ public class AuthService {
         UsuarioDTO usuarioDTO = convertirAUsuarioDTO(usuario);
 
         // Retornar respuesta
-        return new AuthResponse(usuarioDTO, "Inicio de sesión exitoso");
+        return new AuthResponse(usuarioDTO, "Inicio de sesión exitoso.");
     }
 
     /**

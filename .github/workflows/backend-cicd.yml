@@ -16,7 +16,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: reverse07/empresa-backend
+  IMAGE_NAME: diegoarroyo7/empresa-backend
   JAVA_VERSION: '21'
 
 jobs:

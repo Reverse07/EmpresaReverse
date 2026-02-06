@@ -16,7 +16,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: tu-usuario/empresa-frontend
+  IMAGE_NAME: reverse07/empresa-frontend
   NODE_VERSION: '20'
 
 jobs:

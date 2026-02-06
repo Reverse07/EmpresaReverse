@@ -19,8 +19,8 @@ on:
           - production
 
 env:
-  BACKEND_IMAGE: tu-usuario/empresa-backend
-  FRONTEND_IMAGE: tu-usuario/empresa-frontend
+  BACKEND_IMAGE: reverse07/empresa-backend
+  FRONTEND_IMAGE: reverse07/empresa-frontend
   STACK_NAME: empresa-stack
 
 jobs:

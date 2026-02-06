@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { ServiceCardComponent } from '../../shared/service-card/service-card.component';
 import { VideoCardComponent } from '../../shared/video-card/video-card.component';
 import { ServicioService } from '../../services/servicio.service';
@@ -9,9 +8,9 @@ import { Servicio } from '../../models/servicio.model';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ServiceCardComponent, VideoCardComponent, RouterLink],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  imports: [CommonModule, ServiceCardComponent, VideoCardComponent],
+  templateUrl: './home.component.html'
+  // ✅ styleUrl REMOVIDO - Los estilos están en styles.css global
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('heroVideo') heroVideo!: ElementRef<HTMLVideoElement>;

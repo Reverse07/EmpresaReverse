@@ -79,6 +79,33 @@ CREATE TABLE IF NOT EXISTS tickets (
     usuario_id BIGINT NOT NULL REFERENCES usuarios(id)
 );
 
+-- ============================================
+-- TABLA ADICIONAL: planes
+-- ============================================
+CREATE TABLE IF NOT EXISTS planes (
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    precio_base NUMERIC(10,2) NOT NULL,
+    descuento NUMERIC(5,2) DEFAULT 0.00,
+    precio_final NUMERIC(10,2) NOT NULL,
+    activo BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- ============================================
+-- TABLA: plan_servicios (relación muchos a muchos)
+-- ============================================
+CREATE TABLE IF NOT EXISTS plan_servicios (
+    id BIGSERIAL PRIMARY KEY,
+    plan_id BIGINT NOT NULL REFERENCES planes(id) ON DELETE CASCADE,
+    servicio_id BIGINT NOT NULL REFERENCES servicios(id) ON DELETE CASCADE,
+    UNIQUE(plan_id, servicio_id)
+);
+
+-- ============================================
+-- ✅ INSERTAR USUARIOS PRIMERO
+-- ============================================
 INSERT INTO usuarios (apellido, email, estado, fecha_creacion, nombre, password, rol, telefono) VALUES
 ('Pérez', 'juan.perez@mail.com', true, NOW(), 'Juan', '123456', 'CLIENTE', '999111222'),
 ('Gómez', 'ana.gomez@mail.com', true, NOW(), 'Ana', '123456', 'CLIENTE', '999222333'),
@@ -86,6 +113,9 @@ INSERT INTO usuarios (apellido, email, estado, fecha_creacion, nombre, password,
 ('Torres', 'lucia.torres@mail.com', true, NOW(), 'Lucía', '123456', 'ASESOR', '999444555'),
 ('Admin', 'admin@mail.com', true, NOW(), 'Administrador', 'admin123', 'ADMIN', '999555666');
 
+-- ============================================
+-- ✅ INSERTAR SERVICIOS (ANTES DE PLANES Y PEDIDOS)
+-- ============================================
 INSERT INTO servicios (activo, descripcion, duracion_estimada, fecha_creacion, nombre, precio, tipo) VALUES
 (true, 'Instalación de internet hogar', 120, NOW(), 'Internet Hogar', 120.00, 'INSTALACION'),
 (true, 'Mantenimiento de red', 90, NOW(), 'Mantenimiento Red', 80.00, 'MANTENIMIENTO'),
@@ -93,6 +123,27 @@ INSERT INTO servicios (activo, descripcion, duracion_estimada, fecha_creacion, n
 (true, 'Configuración de router', 45, NOW(), 'Config Router', 40.00, 'CONFIGURACION'),
 (true, 'Instalación de cámaras', 180, NOW(), 'Cámaras Seguridad', 300.00, 'INSTALACION');
 
+-- ============================================
+-- ✅ INSERTAR PLANES (DESPUÉS DE SERVICIOS)
+-- ============================================
+INSERT INTO planes (nombre, descripcion, precio_base, descuento, precio_final, activo) VALUES
+('Plan Emprendedor', 'Perfecto para pequeños negocios que inician su transformación digital.', 250.00, 0.10, 225.00, true),
+('Plan Empresa', 'Ideal para empresas en crecimiento que buscan expandir su presencia digital.', 500.00, 0.15, 425.00, true),
+('Plan Corporativo', 'Solución completa para grandes empresas con necesidades complejas.', 1000.00, 0.20, 800.00, true)
+ON CONFLICT DO NOTHING;
+
+-- ============================================
+-- ✅ ASOCIAR SERVICIOS A PLANES (DESPUÉS DE AMBOS)
+-- ============================================
+INSERT INTO plan_servicios (plan_id, servicio_id) VALUES
+(1, 1), (1, 3),           -- Plan Emprendedor: servicios 1 y 3
+(2, 2), (2, 3), (2, 4),   -- Plan Empresa: servicios 2, 3 y 4
+(3, 1), (3, 2), (3, 5)    -- Plan Corporativo: servicios 1, 2 y 5
+ON CONFLICT DO NOTHING;
+
+-- ============================================
+-- ✅ INSERTAR PEDIDOS (DESPUÉS DE USUARIOS Y SERVICIOS)
+-- ============================================
 INSERT INTO pedidos (
     direccion, estado, fecha_completada, fecha_programada, fecha_solicitud,
     notas_cliente, notas_internas, precio_final, cliente_id, servicio_id
@@ -112,7 +163,10 @@ INSERT INTO pedidos (
 ('Av. Central 999', 'PROGRAMADO', NULL, NOW() + INTERVAL '5 days', NOW(),
  NULL, 'Instalación compleja', 300.00, 1, 5);
 
-    INSERT INTO facturas (
+-- ============================================
+-- ✅ INSERTAR FACTURAS (DESPUÉS DE PEDIDOS)
+-- ============================================
+INSERT INTO facturas (
     fecha_emision, fecha_pago, igv, metodo_pago, numero_factura,
     pagada, subtotal, total, pedido_id
 ) VALUES
@@ -122,6 +176,9 @@ INSERT INTO pedidos (
 (NOW(), NULL, 7.20, 'PLIN', 'F001-0004', false, 40.00, 47.20, 4),
 (NOW(), NULL, 54.00, 'TRANSFERENCIA', 'F001-0005', false, 300.00, 354.00, 5);
 
+-- ============================================
+-- ✅ INSERTAR NOTIFICACIONES (DESPUÉS DE USUARIOS)
+-- ============================================
 INSERT INTO notificaciones (
     fecha_creacion, fecha_lectura, leida, mensaje, tipo, titulo, destinatario_id
 ) VALUES
@@ -131,7 +188,9 @@ INSERT INTO notificaciones (
 (NOW(), NULL, false, 'Pedido programado para mañana', 'RECORDATORIO', 'Pedido programado', 1),
 (NOW(), NULL, false, 'Nuevo ticket de soporte', 'ALERTA', 'Ticket creado', 4);
 
-
+-- ============================================
+-- ✅ INSERTAR TICKETS (AL FINAL)
+-- ============================================
 INSERT INTO tickets (
     descripcion, estado, fecha_creacion, fecha_resolucion,
     prioridad, respuesta, titulo, asesor_asignado_id, pedido_id, usuario_id

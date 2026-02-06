@@ -1,1 +1,295 @@
-/* You can add global styles to this file, and also import other style files */
+/* ========================================
+   ESTILOS GLOBALES - EMPRESA REVERSE
+   ======================================== */
+
+/* ⚡ SCROLL SUAVE */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 🎥 HERO BANNER CON VIDEO */
+.hero-banner {
+  position: relative !important;
+  width: 100% !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.hero-video {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  transform: translate(-50%, -50%) !important;
+  object-fit: cover !important;
+  z-index: 1 !important;
+}
+
+.hero-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.7), rgba(108, 117, 125, 0.6)) !important;
+  z-index: 2 !important;
+}
+
+.hero-content {
+  position: relative !important;
+  z-index: 3 !important;
+  text-align: center !important;
+  color: white !important;
+  padding: 20px !important;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 10vw, 7rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.1em !important;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  margin-bottom: 1rem !important;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 3vw, 1.5rem) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.05em !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ✨ ANIMACIONES */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 1s ease-out !important;
+}
+
+.animate-fade-in-delay {
+  animation: fadeInUp 1s ease-out 0.3s backwards !important;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeInUp 1s ease-out 0.6s backwards !important;
+}
+
+/* 🟩 SECCIÓN SERVICIOS */
+.services-section {
+  background: linear-gradient(to bottom, #ffffff, #f8f9fa) !important;
+}
+
+.service-card {
+  animation: fadeInUp 0.6s ease-out backwards;
+  transition: transform 0.3s ease !important;
+}
+
+.service-card:hover {
+  transform: translateY(-10px) !important;
+}
+
+/* 🎬 SECCIÓN VIDEOS */
+.videos-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.videos-section::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>') !important;
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+}
+
+.video-card-wrapper {
+  animation: fadeInUp 0.6s ease-out backwards;
+  transition: transform 0.3s ease !important;
+}
+
+.video-card-wrapper:hover {
+  transform: scale(1.05) !important;
+}
+
+.video-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
+.video-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
+.video-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
+
+/* 📊 SECCIÓN ESTADÍSTICAS */
+.stats-section {
+  border-top: 1px solid #dee2e6 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.stat-item {
+  padding: 20px !important;
+  transition: transform 0.3s ease !important;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px) !important;
+}
+
+/* 💬 CTA FINAL */
+.cta-section {
+  background: linear-gradient(135deg, #0d6efd 0%, #6c757d 100%) !important;
+  padding: 5rem 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.cta-section::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  right: -50% !important;
+  width: 200% !important;
+  height: 200% !important;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%) !important;
+  animation: pulse 4s ease-in-out infinite !important;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+/* 🎨 MEJORAS GENERALES */
+.badge {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+/* 🔘 BOTONES MEJORADOS */
+.btn {
+  transition: all 0.3s ease !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem !important;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem !important;
+  }
+
+  .cta-section {
+    padding: 3rem 0 !important;
+  }
+}
+
+/* ========================================
+   ESTILOS PÁGINA SERVICIOS
+   ======================================== */
+
+.servicios-section {
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff) !important;
+  min-height: 100vh !important;
+}
+
+.page-title {
+  background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.service-wrapper {
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(102, 16, 242, 0.05)) !important;
+  border: 2px solid rgba(13, 110, 253, 0.1) !important;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%) !important;
+  color: white !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 24px rgba(13, 110, 253, 0.3) !important;
+  color: white !important;
+}
+
+/* Animación de entrada */
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out !important;
+}
+
+/* ========================================
+   UTILIDADES ADICIONALES
+   ======================================== */
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+}
+
+/* Espaciado consistente */
+section {
+  padding: 60px 0;
+}
+
+/* Mejorar legibilidad */
+p {
+  line-height: 1.6;
+}
+
+/* Links sin subrayado por defecto */
+a {
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}

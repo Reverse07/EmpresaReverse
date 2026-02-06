@@ -1,18 +1,22 @@
-<article class="card">
-<img
-  [src]="servicio.imagenUrl"
-  alt="{{ servicio.nombre }}"
-  class="card-img"
-  (error)="cargarImagenFallback($event)"
-/>
-
-  <div class="card-content">
+<div class="service-card">
+  <img 
+    [src]="getImageUrl()"
+    [alt]="servicio.nombre"
+    class="service-image"
+    (error)="onImageError($event)"
+  >
+  
+  <div class="service-content">
     <h3>{{ servicio.nombre }}</h3>
     <p class="desc">{{ servicio.descripcion }}</p>
     
-    <div class="meta">
-      <span class="precio">{{ servicio.precio }} PEN</span>
+    <div class="service-meta">
+      <span class="badge bg-primary">{{ servicio.tipo }}</span>
       <small>{{ servicio.duracionFormateada }}</small>
     </div>
+    
+    <div class="service-price">
+      <strong>{{ servicio.precio | currency:'USD':'symbol':'1.2-2' }}</strong>
+    </div>
   </div>
-</article>
+</div>

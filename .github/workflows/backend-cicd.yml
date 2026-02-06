@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - main
+      - develop
     paths:
       - 'empresa-reverse-backend/**'
       - '.github/workflows/backend-cicd.yml'
-    pull_request:
+  pull_request:
     branches:
       - main
     paths:

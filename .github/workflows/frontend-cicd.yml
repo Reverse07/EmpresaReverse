@@ -14,6 +14,11 @@ on:
     paths:
       - 'empresa-reverse-frontend/**'
 
+# ✅ AGREGAR PERMISOS PARA SECURITY SCANNING
+permissions:
+  contents: read
+  security-events: write
+
 env:
   REGISTRY: docker.io
   IMAGE_NAME: diegoarroyo7/empresa-frontend
@@ -87,7 +92,7 @@ jobs:
             type=raw,value=secure-fixed,enable={{is_default_branch}}
             type=raw,value=latest,enable={{is_default_branch}}
       
-      - name: 🔨 Build y Push (SIN cache)
+      - name: 🔨 Build y Push
         uses: docker/build-push-action@v5
         with:
           context: ./empresa-reverse-frontend
@@ -95,9 +100,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          # ✅ CACHE ELIMINADO TEMPORALMENTE
-          # cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
-          # cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
   
   # ==========================================
   # JOB 3: Escaneo de Seguridad
@@ -108,6 +110,9 @@ jobs:
     needs: docker-build
     
     steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+      
       - name: 🔍 Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -116,7 +121,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
         continue-on-error: true
       
-      - name: 📊 Upload Trivy results
+      - name: 📊 Generate SARIF report
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
@@ -126,7 +131,7 @@ jobs:
         continue-on-error: true
       
       - name: 📤 Upload SARIF to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
           sarif_file: 'trivy-frontend-results.sarif'

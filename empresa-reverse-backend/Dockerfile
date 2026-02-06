@@ -11,8 +11,10 @@ RUN apk update && \
         ca-certificates \
         tzdata
 
-COPY pom.xml mvnw ./
+COPY pom.xml ./
+COPY mvnw ./
 COPY .mvn .mvn
+RUN chmod +x ./mvnw  # ← AGREGAR ESTA LÍNEA
 RUN ./mvnw dependency:go-offline
 
 COPY src ./src

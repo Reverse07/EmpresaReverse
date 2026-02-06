@@ -1,0 +1,125 @@
+name: Frontend CI/CD - EmpresaReverse
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'empresa-reverse-frontend/**'
+      - '.github/workflows/frontend-cicd.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'empresa-reverse-frontend/**'
+
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: tu-usuario/empresa-frontend
+  NODE_VERSION: '20'
+
+jobs:
+  # ==========================================
+  # JOB 1: Lint y Tests
+  # ==========================================
+  test:
+    name: 🧪 Tests y Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: empresa-reverse-frontend
+    
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+      
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: empresa-reverse-frontend/package-lock.json
+      
+      - name: 📦 Install dependencies
+        run: npm ci
+      
+      - name: 🔍 Run linter
+        run: npm run lint
+        continue-on-error: true
+      
+      - name: 🧪 Run tests
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
+        continue-on-error: true
+      
+      - name: 🔨 Build aplicación
+        run: npm run build -- --configuration production
+  
+  # ==========================================
+  # JOB 2: Build y Push Docker Image
+  # ==========================================
+  docker-build:
+    name: 🐳 Build Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    defaults:
+      run:
+        working-directory: empresa-reverse-frontend
+    
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+      
+      - name: 🔧 Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: 🔐 Login a Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: 🏷️ Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=secure-fixed,enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch}}
+      
+      - name: 🔨 Build y Push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./empresa-reverse-frontend
+          file: ./empresa-reverse-frontend/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+  
+  # ==========================================
+  # JOB 3: Escaneo de Seguridad
+  # ==========================================
+  security-scan:
+    name: 🔐 Security Scan
+    runs-on: ubuntu-latest
+    needs: docker-build
+    
+    steps:
+      - name: 🔍 Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: 'sarif'
+          output: 'trivy-frontend-results.sarif'
+          severity: 'CRITICAL,HIGH'
+      
+      - name: 📊 Upload Trivy results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-frontend-results.sarif'
+          category: 'frontend-security'

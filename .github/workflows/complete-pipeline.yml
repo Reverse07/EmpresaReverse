@@ -168,117 +168,39 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ Backend and Frontend images scanned" >> $GITHUB_STEP_SUMMARY
           echo "📊 Results uploaded to Security tab" >> $GITHUB_STEP_SUMMARY
-
-  # ==========================================
-  # JOB 4: Deploy to Production
-  # ==========================================
-  deploy-production:
-    name: 🚀 Deploy to Production (Cloudflare Tunnel)
-    runs-on: ubuntu-latest
-    needs: [security-scan]
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: production
-      url: http://localhost:8080
-    
-    steps:
-      - name: 📥 Checkout Code
-        uses: actions/checkout@v4
-      
-      - name: 🔧 Install Cloudflare Tunnel Client
-        run: |
-          wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
-          sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
-          sudo chmod +x /usr/local/bin/cloudflared
-          cloudflared --version
-      
-      - name: 🔑 Setup SSH Keys
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.PROD_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          
-          # Configurar SSH config para usar Cloudflare Tunnel
-          cat > ~/.ssh/config << 'EOF'
-          Host cf-tunnel
-            HostName localhost
-            User ${{ secrets.PROD_USER }}
-            Port 2222
-            IdentityFile ~/.ssh/id_ed25519
-            StrictHostKeyChecking no
-            UserKnownHostsFile /dev/null
-            ProxyCommand cloudflared access ssh --hostname ${{ secrets.CLOUDFLARE_TUNNEL_ID }}
-          EOF
-          
-          chmod 600 ~/.ssh/config
-          cat ~/.ssh/config
-      
-      - name: 🧪 Test SSH Connection
-        run: |
-          echo "Testing SSH connection via Cloudflare Tunnel..."
-          ssh cf-tunnel "echo '✅ SSH connection successful via Cloudflare Tunnel'" || {
-            echo "❌ SSH connection failed"
-            exit 1
-          }
-      
-      - name: 💾 Backup Database
-        run: |
-          echo "Creating database backup..."
-          ssh cf-tunnel "cd /opt/empresa-reverse && ./backup-db.sh" || {
-            echo "⚠️ Backup failed, continuing anyway..."
-          }
-      
-      - name: 🚀 Deploy to Production
-        run: |
-          echo "Deploying to production via Cloudflare Tunnel..."
-          ssh cf-tunnel << 'ENDSSH'
-            set -e
-            cd /opt/empresa-reverse
-            
-            echo "📥 Pulling latest images..."
-            docker pull ${{ env.BACKEND_IMAGE }}:secure-fixed
-            docker pull ${{ env.FRONTEND_IMAGE }}:secure-fixed
-            
-            echo "🔄 Deploying with Docker Swarm..."
-            ./deploy-swarm.sh
-            
-            echo "✅ Deployment complete!"
-          ENDSSH
-      
-      - name: 🧪 Verify Deployment
-        run: |
-          echo "Verifying deployment..."
-          ssh cf-tunnel "docker service ls && docker ps --filter 'name=empresa-reverse'" || {
-            echo "⚠️ Verification failed"
-            exit 1
-          }
-      
-      - name: ✅ Deployment Summary
-        if: success()
-        run: |
-          echo "### 🎉 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Backend:** \`${{ env.BACKEND_IMAGE }}:secure-fixed\`" >> $GITHUB_STEP_SUMMARY
-          echo "**Frontend:** \`${{ env.FRONTEND_IMAGE }}:secure-fixed\`" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Connection:** Cloudflare Tunnel" >> $GITHUB_STEP_SUMMARY
-          echo "**Tunnel ID:** \`${{ secrets.CLOUDFLARE_TUNNEL_ID }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "---" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🌐 Access URLs:" >> $GITHUB_STEP_SUMMARY
-          echo "- Frontend: http://localhost:8080" >> $GITHUB_STEP_SUMMARY
-          echo "- Backend: http://localhost:8082" >> $GITHUB_STEP_SUMMARY
-          echo "- Swarm: http://localhost:8081" >> $GITHUB_STEP_SUMMARY
-      
-      - name: ❌ Deployment Failed
-        if: failure()
-        run: |
-          echo "### ❌ Deployment Failed" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Ready to Deploy" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Check the logs above for details." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Manual Deploy:**" >> $GITHUB_STEP_SUMMARY
+          echo "### Deploy with PowerShell:" >> $GITHUB_STEP_SUMMARY
           echo '```powershell' >> $GITHUB_STEP_SUMMARY
           echo ".\deploy.ps1" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Or SSH to VM manually:" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo "ssh -i ~/.ssh/id_ed25519 -p 2222 user01@127.0.0.1" >> $GITHUB_STEP_SUMMARY
+          echo "cd /opt/empresa-reverse" >> $GITHUB_STEP_SUMMARY
+          echo "docker pull ${{ env.BACKEND_IMAGE }}:secure-fixed" >> $GITHUB_STEP_SUMMARY
+          echo "docker pull ${{ env.FRONTEND_IMAGE }}:secure-fixed" >> $GITHUB_STEP_SUMMARY
+          echo "./deploy-swarm.sh" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+# ==========================================
+# NOTAS SOBRE DEPLOY AUTOMÁTICO
+# ==========================================
+# El deploy automático está deshabilitado porque:
+# - La VM está en red local detrás de NAT
+# - GitHub Actions no puede acceder directamente
+# - ngrok requiere tarjeta de crédito para TCP tunnels
+# - Cloudflare Tunnel requiere configuración de dominio
+# 
+# SOLUCIÓN ACTUAL: Deploy semi-automático con deploy.ps1
+# - GitHub Actions: Build + Security Scan (automático)
+# - Deploy: 1 comando PowerShell (10 segundos)
+# 
+# Para deploy 100% automático necesitarías:
+# - Servidor en la nube (AWS, Azure, GCP)
+# - O configurar Cloudflare Tunnel con dominio
+# - O pagar por ngrok Pro

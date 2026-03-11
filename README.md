@@ -740,7 +740,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 ## 📞 Contacto y Soporte
 
-- 📧 Email: soporte@empresareverse.com
+- 📧 Email: tmldiego0@hotmail.com
 - 🐛 Issues: [GitHub Issues](https://github.com/Reverse07/EmpresaReverse/issues)
 - 💬 Discussions: [GitHub Discussions](https://github.com/Reverse07/EmpresaReverse/discussions)
 
